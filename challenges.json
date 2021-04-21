@@ -1,0 +1,12 @@
+[
+  {
+    "type": "exercise",
+    "description": "Jump ten times.",
+    "amount": 80
+  },
+  {
+    "type": "food",
+    "description": "Eat an apple.",
+    "amount": 90
+  }
+]
