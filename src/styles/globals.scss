@@ -1,13 +1,15 @@
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 :root {
-    --title: #2E384D;
+  --title: #2e384d;
+  --gray-line: #dcdde0;
+  --green: #4cd62b;
 }
 
 body {
-    font: 400 1rem Inter, sans-serif;
+  font: 400 1rem Inter, sans-serif;
 }
