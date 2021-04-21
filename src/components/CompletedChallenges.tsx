@@ -1,10 +1,14 @@
+import { useChallenges } from "../hooks/useChallenges";
+
 import styles from "../styles/components/CompletedChallenges.module.scss";
 
 export function CompletedChallenges() {
+  const { challengesCompleted } = useChallenges();
+
   return (
     <div className={styles.completedChallenges}>
-      <span>Completed challenges</span>
-      <span>2</span>
+      <span>Desafios completos</span>
+      <span>{challengesCompleted}</span>
     </div>
   );
 }
