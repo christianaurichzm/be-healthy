@@ -1,5 +1,11 @@
+import { Profile } from "../components/Profile";
+
+import styles from "../styles/pages/Home.module.scss";
+
 export default function Home() {
   return (
-    <h1>Hello world</h1>
-  )
+    <main className={styles.homeContainer}>
+      <Profile />
+    </main>
+  );
 }
