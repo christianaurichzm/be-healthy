@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import challenges from "../../challenges.json";
 import { LevelUpModal } from "../components/LevelUpModal";
 
@@ -43,10 +44,15 @@ export function ChallengesProvider({
 
   const [activeChallenge, setActiveChallenge] = useState<Challenge>(null);
   const [isLevelUpModalOpen, setIsLevelUpModalOpen] = useState(false);
+  const [, setCookie] = useCookies();
 
   const experienceToNextLevel = Math.pow((level + 1) * 4, 2);
 
-  useEffect(() => {}, [level, currentExperience, challengesCompleted]);
+  useEffect(() => {
+    setCookie("level", String(level));
+    setCookie("currentExperience", String(currentExperience));
+    setCookie("challengesCompleted", String(challengesCompleted));
+  }, [level, currentExperience, challengesCompleted]);
 
   function startNewChallenge() {
     const randomChallengeIndex = Math.floor(Math.random() * challenges.length);
