@@ -49,6 +49,10 @@ export function ChallengesProvider({
   const experienceToNextLevel = Math.pow((level + 1) * 4, 2);
 
   useEffect(() => {
+    Notification.requestPermission();
+  }, []);
+
+  useEffect(() => {
     setCookie("level", String(level));
     setCookie("currentExperience", String(currentExperience));
     setCookie("challengesCompleted", String(challengesCompleted));
@@ -59,6 +63,15 @@ export function ChallengesProvider({
     const challenge = challenges[randomChallengeIndex];
 
     setActiveChallenge(challenge as Challenge);
+
+    new Audio("/notification.mp3").play();
+
+    if (Notification.permission === "granted") {
+      new Notification("New challenge 🎉", {
+        body: `Worth ${challenge.amount} xp!`,
+        silent: false,
+      });
+    }
   }
 
   function levelUp() {
