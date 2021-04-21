@@ -5,13 +5,19 @@
 }
 
 :root {
+  --background: #F2F3F5;
   --title: #2e384d;
   --white:#fff;
   --blue: #5965E0;
+  --text: #666666;
   --gray-line: #dcdde0;
   --green: #4cd62b;
+  --red: #E83F5B;
+  --blue-dark: #4953B8;
 }
 
 body {
   font: 400 1rem Inter, sans-serif;
+  background: var(--background);
+  color: var(--text);
 }
