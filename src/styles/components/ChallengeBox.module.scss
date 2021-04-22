@@ -9,6 +9,10 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+
+  p img {
+    margin-bottom: 1rem;
+  }
 }
 
 .challengeNotActive {
@@ -94,8 +98,4 @@
       }
     }
   }
-}
-
-.challengeContainer p img {
-  margin-bottom: 1rem;
 }

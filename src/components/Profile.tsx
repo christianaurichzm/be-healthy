@@ -3,16 +3,13 @@ import { useChallenges } from "../hooks/useChallenges";
 import styles from "../styles/components/Profile.module.scss";
 
 export function Profile() {
-  const { level } = useChallenges();
+  const { level, user } = useChallenges();
 
   return (
     <div className={styles.profileContainer}>
-      <img
-        src="https://github.com/christianaurichzm.png"
-        alt="Christian Aurich"
-      />
+      <img src={user.avatar_url} alt={user.name} />
       <div>
-        <strong>Christian Aurich</strong>
+        <strong>{user.name}</strong>
         <p>
           <img src="icons/level.svg" alt="Level" />
           Level {level}

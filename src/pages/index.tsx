@@ -1,67 +1,46 @@
 import Head from "next/head";
 
-import { ChallengeBox } from "../components/ChallengeBox";
-import { CompletedChallenges } from "../components/CompletedChallenges";
-import { Countdown } from "../components/Countdown";
-import { Profile } from "../components/Profile";
-import { ExperienceBar } from "../components/ExperienceBar";
-
-import { ChallengesProvider } from "../contexts/ChallengesContext";
-import { CountdownProvider } from "../contexts/CountdownContext";
-
 import styles from "../styles/pages/Home.module.scss";
-import { GetServerSideProps } from "next";
+import { FiGithub, FiLogIn } from "react-icons/fi";
+import { useRouter } from "next/dist/client/router";
+import React, { useState } from "react";
 
-interface HomeProps {
-  level: number;
-  currentExperience: number;
-  challengesCompleted: number;
-}
+export default function Home() {
+  const { push } = useRouter();
+  const [username, setUsername] = useState<string>();
 
-export default function Home({
-  level,
-  currentExperience,
-  challengesCompleted,
-}: HomeProps) {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    username && push(`/${username}`);
+  };
+
   return (
-    <ChallengesProvider
-      level={level}
-      currentExperience={currentExperience}
-      challengesCompleted={challengesCompleted}
-    >
-      <CountdownProvider>
-        <main className={styles.homeContainer}>
-          <Head>
-            <title>Be Healthy | Home</title>
-          </Head>
+    <div className={styles.container}>
+      <Head>
+        <title>Home | Be Healthy</title>
+      </Head>
+      <div className={styles.content}>
+        <img src="logo.png" alt="Logo" />
 
-          <ExperienceBar />
+        <div className={styles.hint}>
+          <FiGithub size={36} />
+          <span>Use your GitHub username to sign in</span>
+        </div>
 
-          <section>
-            <div>
-              <Profile />
-              <CompletedChallenges />
-              <Countdown />
-            </div>
-
-            <ChallengeBox />
-          </section>
-        </main>
-      </CountdownProvider>
-    </ChallengesProvider>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Type your username"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <button type="submit">
+            <FiLogIn size={24} />
+          </button>
+        </form>
+        <div className={styles.footer}>
+          <span>By Christian Aurich</span>
+        </div>
+      </div>
+    </div>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const { level, currentExperience, challengesCompleted } = req.cookies;
-
-  return {
-    props: {
-      level: level ? Number(level) : 1,
-      currentExperience: currentExperience ? Number(currentExperience) : 0,
-      challengesCompleted: challengesCompleted
-        ? Number(challengesCompleted)
-        : 0,
-    },
-  };
-};

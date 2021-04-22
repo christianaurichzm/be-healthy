@@ -2,6 +2,7 @@ import { createContext, ReactNode, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import challenges from "../../challenges.json";
 import { LevelUpModal } from "../components/LevelUpModal";
+import { ChallengePageProps } from "../pages/[username]";
 
 interface Challenge {
   type: "body" | "food";
@@ -9,10 +10,7 @@ interface Challenge {
   amount: number;
 }
 
-interface ChallengesContextData {
-  level: number;
-  challengesCompleted: number;
-  currentExperience: number;
+interface ChallengesContextData extends ChallengePageProps {
   experienceToNextLevel: number;
   activeChallenge: Challenge;
   completeChallenge: () => void;
@@ -21,17 +19,15 @@ interface ChallengesContextData {
   closeLevelUpModal: () => void;
 }
 
-interface ChallengesProviderProps {
+interface ChallengesProviderProps extends ChallengePageProps {
   children: ReactNode;
-  level: number;
-  currentExperience: number;
-  challengesCompleted: number;
 }
 
 export const ChallengesContext = createContext({} as ChallengesContextData);
 
 export function ChallengesProvider({
   children,
+  user,
   ...rest
 }: ChallengesProviderProps) {
   const [level, setLevel] = useState(rest.level);
@@ -114,6 +110,7 @@ export function ChallengesProvider({
         currentExperience,
         experienceToNextLevel,
         activeChallenge,
+        user,
         completeChallenge,
         startNewChallenge,
         resetChallenge,
