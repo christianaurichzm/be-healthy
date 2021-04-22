@@ -14,6 +14,8 @@ interface CountdownContextData {
   startCountdown: () => void;
 }
 
+const DEFAULT_TIME_IN_SECONDS = 1 * 60;
+
 let countdownTimeout: NodeJS.Timeout;
 
 export const CountdownContext = createContext({} as CountdownContextData);
@@ -21,7 +23,7 @@ export const CountdownContext = createContext({} as CountdownContextData);
 export function CountdownProvider({ children }: CountdownProviderProps) {
   const { startNewChallenge } = useChallenges();
 
-  const [time, setTime] = useState(0.1 * 60);
+  const [time, setTime] = useState(DEFAULT_TIME_IN_SECONDS);
   const [isActive, setIsActive] = useState(false);
   const [hasFinished, setHasFinished] = useState(false);
 
@@ -44,7 +46,7 @@ export function CountdownProvider({ children }: CountdownProviderProps) {
   function resetCountdown() {
     clearTimeout(countdownTimeout);
     setIsActive(false);
-    setTime(0.6 * 10);
+    setTime(DEFAULT_TIME_IN_SECONDS);
     setHasFinished(false);
   }
 
