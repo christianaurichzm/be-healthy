@@ -4,7 +4,7 @@ import challenges from "../../challenges.json";
 import { LevelUpModal } from "../components/LevelUpModal";
 
 interface Challenge {
-  type: "exercise" | "food";
+  type: "body" | "food";
   description: string;
   amount: number;
 }

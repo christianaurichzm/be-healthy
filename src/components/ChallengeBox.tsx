@@ -28,8 +28,8 @@ export function ChallengeBox() {
           <header>Gain {activeChallenge.amount} xp</header>
 
           <main>
-            {activeChallenge.type === "exercise" ? (
-              <img src="/icons/exercise.svg" />
+            {activeChallenge.type === "body" ? (
+              <img src="/icons/body.svg" />
             ) : (
               <img src="/icons/food.svg" />
             )}

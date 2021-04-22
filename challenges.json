@@ -1,12 +1,42 @@
 [
   {
-    "type": "exercise",
+    "type": "body",
     "description": "Relax and lean your head forward. Slowly roll head in a circle on one side for 10 seconds. Repeat on the other side.",
     "amount": 80
   },
   {
     "type": "food",
-    "description": "Eat an apple.",
-    "amount": 90
+    "description": "Eat a fruit.",
+    "amount": 60
+  },
+  {
+    "type": "food",
+    "description": "Drink 1 cup of water",
+    "amount": 50
+  },
+  {
+    "type": "body",
+    "description": "Take a 5 minutes sunbath.",
+    "amount": 100
+  },
+  {
+    "type": "body",
+    "description": "Meditate for 5 minutes.",
+    "amount": 100
+  },
+  {
+    "type": "body",
+    "description": "Raise both shoulders up toward ears, then slowly roll them backward. Repeat, rolling forward. Do this three times in both directions.",
+    "amount": 80
+  },
+  {
+    "type": "body",
+    "description": "Clasp hands behind the lower back. Push chest outward, and raise chin. Hold for 2 to 3 deep breaths.",
+    "amount": 50
+  },
+  {
+    "type": "food",
+    "description": "Eat some vegetable.",
+    "amount": 80
   }
 ]
