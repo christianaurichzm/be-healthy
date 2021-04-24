@@ -11,12 +11,12 @@
   },
   {
     "type": "food",
-    "description": "Drink 1 cup of water",
+    "description": "Drink a glass of water",
     "amount": 50
   },
   {
     "type": "body",
-    "description": "Take a 5 minutes sunbath.",
+    "description": "Take 5 minutes of sunbathing.",
     "amount": 100
   },
   {
@@ -36,7 +36,7 @@
   },
   {
     "type": "food",
-    "description": "Eat some vegetable.",
+    "description": "Eat a vegetable.",
     "amount": 80
   }
 ]

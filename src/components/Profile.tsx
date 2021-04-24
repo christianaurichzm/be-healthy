@@ -3,7 +3,7 @@ import { useChallenges } from "../hooks/useChallenges";
 import styles from "../styles/components/Profile.module.scss";
 
 export function Profile() {
-  const { level, user } = useChallenges();
+  const { userLevel, user } = useChallenges();
 
   return (
     <div className={styles.profileContainer}>
@@ -12,7 +12,7 @@ export function Profile() {
         <strong>{user.name}</strong>
         <p>
           <img src="icons/level.svg" alt="Level" />
-          Level {level}
+          Level {userLevel}
         </p>
       </div>
     </div>
