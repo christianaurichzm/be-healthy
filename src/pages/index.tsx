@@ -2,8 +2,12 @@ import Head from "next/head";
 
 import styles from "../styles/pages/Home.module.scss";
 import { FiGithub, FiLogIn } from "react-icons/fi";
+import Cookies from "js-cookie";
 import { useRouter } from "next/dist/client/router";
 import React, { useState } from "react";
+import { EXPIRATION_DATE } from "../constants/auth";
+import { GetServerSideProps } from "next";
+import { SESSION_USER } from "../constants/cookiesName";
 
 export default function Home() {
   const { push } = useRouter();
@@ -11,7 +15,12 @@ export default function Home() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    username && push(`/${username}`);
+    if (username) {
+      push(`/${username}`);
+      Cookies.set(SESSION_USER, username, {
+        expires: EXPIRATION_DATE,
+      });
+    }
   };
 
   return (
@@ -44,3 +53,18 @@ export default function Home() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const { sessionUser } = req.cookies;
+  if (sessionUser) {
+    return {
+      redirect: {
+        destination: `${sessionUser}`,
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
+};

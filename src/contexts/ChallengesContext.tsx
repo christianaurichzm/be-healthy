@@ -1,8 +1,13 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
+import Cookies from "js-cookie";
 import challenges from "../../challenges.json";
 import { LevelUpModal } from "../components/LevelUpModal";
 import { ChallengePageProps } from "../pages/[username]";
+import {
+  CHALLENGES_COMPLETED,
+  CURRENT_EXPERIENCE,
+  USER_LEVEL,
+} from "../constants/cookiesName";
 
 interface Challenge {
   type: "body" | "food";
@@ -30,7 +35,7 @@ export function ChallengesProvider({
   user,
   ...rest
 }: ChallengesProviderProps) {
-  const [level, setLevel] = useState(rest.level);
+  const [userLevel, setUserLevel] = useState(rest.userLevel);
   const [currentExperience, setCurrentExperience] = useState(
     rest.currentExperience
   );
@@ -40,19 +45,18 @@ export function ChallengesProvider({
 
   const [activeChallenge, setActiveChallenge] = useState<Challenge>(null);
   const [isLevelUpModalOpen, setIsLevelUpModalOpen] = useState(false);
-  const [, setCookie] = useCookies();
 
-  const experienceToNextLevel = Math.pow((level + 1) * 4, 2);
+  const experienceToNextLevel = Math.pow((userLevel + 1) * 4, 2);
 
   useEffect(() => {
     Notification.requestPermission();
   }, []);
 
   useEffect(() => {
-    setCookie("level", String(level));
-    setCookie("currentExperience", String(currentExperience));
-    setCookie("challengesCompleted", String(challengesCompleted));
-  }, [level, currentExperience, challengesCompleted]);
+    Cookies.set(USER_LEVEL, String(userLevel));
+    Cookies.set(CURRENT_EXPERIENCE, String(currentExperience));
+    Cookies.set(CHALLENGES_COMPLETED, String(challengesCompleted));
+  }, [userLevel, currentExperience, challengesCompleted]);
 
   function startNewChallenge() {
     const randomChallengeIndex = Math.floor(Math.random() * challenges.length);
@@ -71,7 +75,7 @@ export function ChallengesProvider({
   }
 
   function levelUp() {
-    setLevel(level + 1);
+    setUserLevel(userLevel + 1);
     setIsLevelUpModalOpen(true);
   }
 
@@ -105,7 +109,7 @@ export function ChallengesProvider({
   return (
     <ChallengesContext.Provider
       value={{
-        level,
+        userLevel,
         challengesCompleted,
         currentExperience,
         experienceToNextLevel,
