@@ -2,7 +2,7 @@ import { createContext, ReactNode, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import challenges from "../../challenges.json";
 import { LevelUpModal } from "../components/LevelUpModal";
-import { ChallengePageProps } from "../pages/[username]";
+import { ChallengePageProps } from "../pages/challenges";
 import {
   CHALLENGES_COMPLETED,
   CURRENT_EXPERIENCE,
@@ -32,7 +32,6 @@ export const ChallengesContext = createContext({} as ChallengesContextData);
 
 export function ChallengesProvider({
   children,
-  user,
   ...rest
 }: ChallengesProviderProps) {
   const [userLevel, setUserLevel] = useState(rest.userLevel);
@@ -114,7 +113,6 @@ export function ChallengesProvider({
         currentExperience,
         experienceToNextLevel,
         activeChallenge,
-        user,
         completeChallenge,
         startNewChallenge,
         resetChallenge,

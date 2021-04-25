@@ -13,44 +13,16 @@
       height: 280px;
     }
 
-    .hint {
+    button {
       display: flex;
-      margin-top: 2rem;
+      flex-direction: row;
+      align-items: center;
+      margin-top: 6px;
+      padding: 6px;
+      margin-left: -6%;
 
-      span {
-        max-width: 220px;
-        margin-left: 1rem;
-        margin-bottom: 1rem;
-        font-size: 1rem;
-        font-weight: 500;
-      }
-    }
-
-    form {
-      padding: 5px;
-      display: flex;
-      background: var(--white);
-      border-radius: 5px;
-      border: 1px solid;
-
-      input {
-        padding: 10px;
-        margin-right: 5px;
-        font-size: 14px;
-        background: transparent;
-        border: none;
-      }
-
-      button {
-        width: 60px;
-        height: 40px;
-        background-color: var(--blue);
-        border: none;
-        border-radius: 5px;
-
-        svg {
-          color: var(--white);
-        }
+      .icon {
+        margin-right: 10px;
       }
     }
 

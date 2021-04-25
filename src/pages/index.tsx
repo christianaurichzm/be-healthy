@@ -1,26 +1,18 @@
 import Head from "next/head";
 
 import styles from "../styles/pages/Home.module.scss";
-import { FiGithub, FiLogIn } from "react-icons/fi";
-import Cookies from "js-cookie";
-import { useRouter } from "next/dist/client/router";
-import React, { useState } from "react";
-import { EXPIRATION_DATE } from "../constants/auth";
+import { FiGithub } from "react-icons/fi";
+import React from "react";
+import { signIn, getSession } from "next-auth/client";
 import { GetServerSideProps } from "next";
-import { SESSION_USER } from "../constants/cookiesName";
+import { CHALLENGES_PAGE } from "../constants/routers";
 
 export default function Home() {
-  const { push } = useRouter();
-  const [username, setUsername] = useState<string>();
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSignin = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    if (username) {
-      push(`/${username}`);
-      Cookies.set(SESSION_USER, username, {
-        expires: EXPIRATION_DATE,
-      });
-    }
+    signIn("github", {
+      callbackUrl: `${window.location.origin}${CHALLENGES_PAGE}`,
+    });
   };
 
   return (
@@ -31,21 +23,11 @@ export default function Home() {
       <div className={styles.content}>
         <img src="logo.png" alt="Logo" />
 
-        <div className={styles.hint}>
-          <FiGithub size={36} />
-          <span>Use your GitHub username to sign in</span>
-        </div>
+        <button onClick={handleSignin}>
+          <FiGithub className={styles.icon} size={36} />
+          <span>Use your GitHub account to sign in</span>
+        </button>
 
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Type your username"
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <button type="submit">
-            <FiLogIn size={24} />
-          </button>
-        </form>
         <div className={styles.footer}>
           <span>By Christian Aurich</span>
         </div>
@@ -54,16 +36,18 @@ export default function Home() {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const { sessionUser } = req.cookies;
-  if (sessionUser) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+
+  if (session) {
     return {
       redirect: {
-        destination: `${sessionUser}`,
+        destination: CHALLENGES_PAGE,
         permanent: false,
       },
     };
   }
+
   return {
     props: {},
   };

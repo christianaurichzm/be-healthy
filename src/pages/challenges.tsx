@@ -1,56 +1,42 @@
 import Head from "next/head";
-import { useRouter } from "next/dist/client/router";
 
 import { ChallengeBox } from "../components/ChallengeBox";
 import { CompletedChallenges } from "../components/CompletedChallenges";
 import { Countdown } from "../components/Countdown";
 import { Profile } from "../components/Profile";
 import { ExperienceBar } from "../components/ExperienceBar";
-import Cookies from "js-cookie";
 
 import { ChallengesProvider } from "../contexts/ChallengesContext";
 import { CountdownProvider } from "../contexts/CountdownContext";
 
 import styles from "../styles/pages/ChallengePage.module.scss";
 import { GetServerSideProps } from "next";
-import { SESSION_USER } from "../constants/cookiesName";
-
-interface User {
-  name: string;
-  avatar_url: string;
-}
+import { getSession, signOut, useSession } from "next-auth/client";
+import { ROOT_PAGE } from "../constants/routers";
 
 export interface ChallengePageProps {
   userLevel: number;
   currentExperience: number;
   challengesCompleted: number;
-  user: User;
 }
 
 export default function ChallengePage({
   userLevel,
   currentExperience,
   challengesCompleted,
-  user,
 }: ChallengePageProps) {
-  const { reload } = useRouter();
-
-  const logout = () => {
-    Cookies.remove(SESSION_USER);
-    reload();
-  };
+  const [session] = useSession();
 
   return (
     <ChallengesProvider
       userLevel={userLevel}
       currentExperience={currentExperience}
       challengesCompleted={challengesCompleted}
-      user={user}
     >
       <CountdownProvider>
         <div className={styles.challangePageContainer}>
           <Head>
-            <title>{user.name} | Be Healthy</title>
+            <title>{session?.user?.name} | Be Healthy</title>
           </Head>
 
           <ExperienceBar />
@@ -64,7 +50,8 @@ export default function ChallengePage({
 
             <ChallengeBox />
           </section>
-          <button onClick={logout} className={styles.logoutButton}>
+
+          <button onClick={() => signOut()} className={styles.logoutButton}>
             Logout
           </button>
         </div>
@@ -73,30 +60,22 @@ export default function ChallengePage({
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({
-  req,
-  params,
-}) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const {
     userLevel,
     currentExperience,
     challengesCompleted,
-    sessionUser,
-  } = req.cookies;
-  const { username } = params;
+  } = context.req.cookies;
+  const session = await getSession(context);
 
-  if (!sessionUser) {
+  if (!session) {
     return {
       redirect: {
-        destination: "/",
+        destination: ROOT_PAGE,
         permanent: false,
       },
     };
   }
-
-  const user = await (
-    await fetch(`https://api.github.com/users/${username}`)
-  ).json();
 
   return {
     props: {
@@ -105,7 +84,6 @@ export const getServerSideProps: GetServerSideProps = async ({
       challengesCompleted: challengesCompleted
         ? Number(challengesCompleted)
         : 0,
-      user,
     },
   };
 };
