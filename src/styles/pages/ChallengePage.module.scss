@@ -12,6 +12,12 @@
     grid-template-columns: 1fr 1fr;
     gap: 6.25rem;
     align-content: center;
+    
+    @media screen and (max-width: 480px) {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
   }
 
   .logoutButton {
