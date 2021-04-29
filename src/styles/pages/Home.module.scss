@@ -1,14 +1,12 @@
 .container {
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
   background: var(--green-light);
   color: var(--black);
-  display: flex;
-  align-items: center;
 
   .content {
-    margin-left: 42%;
-
     img {
       height: 280px;
     }
@@ -33,7 +31,7 @@
 
       span {
         max-width: 220px;
-        margin-left: 4rem;
+        margin-left: 25%;
         margin-bottom: 1rem;
         font-size: 1rem;
         font-weight: 500;
