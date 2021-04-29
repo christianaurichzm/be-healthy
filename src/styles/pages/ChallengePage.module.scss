@@ -23,5 +23,9 @@
   .logoutButton {
     width: 100px;
     align-self: center;
+
+    @media screen and (max-width: 480px) {
+      min-height: 25px;
+    }
   }
 }

@@ -47,6 +47,10 @@
     font-size: 1.25rem;
     padding: 0 2rem 1.5rem;
     border-bottom: 1px solid var(--gray-line);
+
+    @media screen and (max-width: 480px) {
+      margin-bottom: 2rem;
+    }
   }
 
   main {
@@ -66,6 +70,10 @@
     p {
       line-height: 1.5;
     }
+
+    @media screen and (max-width: 480px) {
+      margin-bottom: 2rem;
+    }    
   }
 
   footer {
